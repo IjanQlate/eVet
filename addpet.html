@@ -54,7 +54,7 @@ td {
             <div id="content">
             
                 <div class="content">
-
+					<form id="tableaddpet" action="database/addpet.php" method="post">
                     <table id="table">
                           <thead>
                               <th>Item</th>
@@ -76,7 +76,7 @@ td {
                                 <tr>
                                     <td>Type of Pet</td>
                                     <td colspan="3">
-                                        <select name="typeofpet_1" id="typeofpet_1">
+                                        <select name="typeofpet_1" id="typeofpet_1" onchange="displaybreed(1)" required>
                                             <option value="">Please Select</option>
                                         </select>
                                     </td>
@@ -90,7 +90,7 @@ td {
                                 <tr>
                                     <td>Breed</td>
                                     <td colspan="3">
-                                        <select name="breed_1" id="breed_1" required disabled>
+                                        <select name="breed_1" id="breed_1" required disabled  >
                                             <option value="">Please Breed</option>
                                         </select>
                                     </td>
@@ -103,8 +103,8 @@ td {
                           </tbody>                 
                     </table>
                     <br />
-                    <button type="button">Submit</button>
-
+                    <button type="button" id="Btnsubmit">Submit</button>
+					</form>
                     
                 </div>
                 
@@ -125,14 +125,17 @@ td {
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.2/dist/additional-methods.min.js"></script>
     <script>
         $(document).ready(function(){
-
+	
+			createtypeofpet(1);
 
             $("#add").on("click", function() {
 
                 var lineNo = $("#noofpet").val();
                 lineNo++; 
+				
+				createtypeofpet(lineNo);
 
-                markup = "<tr id='rowone_"+lineNo+"'><td>Type of Pet</td><td colspan='3'><select name='typeofpet_'"+lineNo+"' id='typeofpet_"+lineNo+"'><option value=''>Please Select</option></select></td></tr><tr id='rowtwo_"+lineNo+"'><td>Name</td><td colspan='3'><input type='text' name='name_"+lineNo+"' id='name_"+lineNo+"' required></td></tr><tr id='rowthree_"+lineNo+"'><td>Breed</td><td colspan='3'><select name='breed_"+lineNo+"' id='breed_"+lineNo+"' required disabled><option value=''>Please Breed</option></select></td></tr>"; 
+                markup = "<tr id='rowone_"+lineNo+"'><td>Type of Pet</td><td colspan='3'><select name='typeofpet_"+lineNo+"' onchange='displaybreed("+lineNo+")' id='typeofpet_"+lineNo+"' required><option value=''>Please Select</option></select></td></tr><tr id='rowtwo_"+lineNo+"'><td>Name</td><td colspan='3'><input type='text' name='name_"+lineNo+"' id='name_"+lineNo+"' required></td></tr><tr id='rowthree_"+lineNo+"'><td>Breed</td><td colspan='3'><select name='breed_"+lineNo+"' id='breed_"+lineNo+"' required disabled><option value=''>Please Breed</option></select></td></tr>"; 
 
                 tableBody = $("table tbody"); 
                 tableBody.append(markup); 
@@ -152,8 +155,87 @@ td {
                 }
 
             });
+			
+			var form = $("#tableaddpet");
+			form.validate();
+			
+			$("#Btnsubmit").on("click",function() {
+			
+				if (form.valid()) {
+				
+					$.ajax({
+						url: "database/addpet.php",
+						dataType: "text",
+						data: form.serialize() + "&function=savedata",
+						type:"post",
+						success: function(data) {
+							console.log(data);
+							
+						}
+					});
+				
+				}
+			
+			});
 
         });
+		
+		function createtypeofpet(id){
+		
+			$.ajax({
+				url: "database/addpet.php",
+				dataType: "json",
+				data: {
+					"function":"displaypet"
+				},
+				type:"post",
+				success: function(data) {
+					console.log(data);
+					
+					for (i = 0; i < data.length; i++)
+{ 
+						 $('#typeofpet_' + id).append($('<option>',
+						 {
+							value: data[i],
+							text : data[i] 
+						}));
+					}
+				}
+			});
+		
+		}
+		
+		function displaybreed(id){
+		
+			if ($("#typeofpet_"+id).val()){
+
+				$.ajax({
+					url: "database/addpet.php",
+					dataType: "json",
+					data: {
+						"function":"displaybreed",
+						"typeofpet": $("#typeofpet_"+id).val()
+					},
+					type:"post",
+					success: function(data) {
+						console.log(data);
+						$('#breed_' + id).attr("disabled",false);
+						
+						for (i = 0; i < data.length; i++)
+						{ 
+							 $('#breed_' + id).append($('<option>',
+							 {
+								value: data[i],
+								text : data[i] 
+							}));
+						}
+					}
+				});
+			
+			}
+		
+
+		}
     </script>
 
 </body>
