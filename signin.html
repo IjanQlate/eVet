@@ -1,0 +1,129 @@
+	<!DOCTYPE html >
+<html>
+
+<head>
+	<title>Lamoureux Clinic & Petshop</title>
+	<link rel="icon" href="images/evet.png">
+	<meta  charset=iso-8859-1" />
+	<link href="css/style.css" rel="stylesheet" type="text/css" />
+	<!--[if IE 6]>
+		<link href="css/ie6.css" rel="stylesheet" type="text/css" />
+	<![endif]-->
+	<!--[if IE 7]>
+        <link href="css/ie7.css" rel="stylesheet" type="text/css" />  
+	<![endif]-->
+</head>
+
+<body>
+
+	  
+			<div id="header">
+	           		<a href="index.html" id="logo"><img src="images/logo1.jpg" width="310" height="114" alt="" title=""></a>
+					<ul class="navigation">
+						<li ><a href="index.html">Home</a></li>
+						<li><a href="about.html">About us</a></li>
+						<li><a href="service.html">Service</a></li>
+						<li><a href="contact.html">Contact us</a></li>
+						<li class="active"><a href="signin.html">Sign In</a></li>
+						<li><a href="register.html">Sign Up</a></li>
+					</ul>
+			</div>
+			
+			<div id="body">
+			
+			       <div id="content">
+				   <br><br><br>
+						<center><img src="images/signin.png" width="200" height="50"></center>
+						<ul class="section">
+						
+						<center>
+						<form action="database/auth.php" id='formsignin'>
+						  <div class="container">
+							
+						<table align="center" width="30%" border="0">
+							<tr>
+							<td><b>Select your role :</b></td></tr>
+							<tr><td><select name="roles">
+								  <option value="Pet Owner">Pet Owner</option>
+								  <option value="Admin">Admin</option>
+								  <option value="Veterinarian">Veterinarian</option>
+							</select></td>
+							</tr>
+							<tr>
+							<td><input type="email" name="email" placeholder="Your Email Address" required /></td>
+							</tr>
+							<tr>
+							<td><input type="password" name="pass" placeholder="Your Password" required /></td>
+							</tr>
+							<tr>
+							<td><button type="button" id="btn-login">Sign In</button></td>
+							</tr>
+							<tr>
+								<td><span id='error_message'></span></td>
+							</tr>
+							<tr>
+							<td><button type="reset" name="reset">Reset</button></td>
+							</tr>
+							<tr>
+							<td><center><a href="register.html">Sign Up Here</a></center></td>
+							</tr>
+						</table>
+						  </div>
+						</form>
+						</center>
+								</ul>
+			</div>
+			
+			<div id="footer">
+			        
+					<div id="footnote">
+						<div class="section">
+						   &copy; 2019 <a href="index.html">Lamoureux Clinic & Petshop </a>. All Rights Reserved.
+						</div>
+					</div>
+			</div>
+			
+	
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.2/dist/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.2/dist/additional-methods.min.js"></script>
+<script>
+$(document).ready(function() {
+
+	var form = $('#formsignin');
+	form.validate();
+
+	$("#btn-login").on('click', function(){
+
+		if(form.valid()){
+
+			$.ajax({
+				url: form.attr("action"),
+				data: {
+					'function': 'login',
+					'data': form.serializeArray()
+				},
+				dataType:'json',
+				crossDomain: false,
+				type:'post',
+				success: function(data){
+
+					console.log(data);
+					if(data.status == "success") {
+						$('#error_message').text(data.message);
+						window.location.replace("http://localhost/eVet/"+data.url);
+					} else if (data.status == "failed") {
+						$('#error_message').text(data.message);
+					}
+
+				}
+			})
+
+		}
+
+	});
+
+});
+</script>
+</html>

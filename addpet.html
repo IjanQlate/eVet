@@ -1,0 +1,160 @@
+<!DOCTYPE html >
+<html>
+
+<head>
+	<title>Lamoureux Clinic & Petshop</title>
+	<link rel="icon" href="images/evet.png">
+	<meta  charset=iso-8859-1" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+}
+
+th {
+  border: 1px solid #dddddd;
+  text-align: center;
+  padding: 8px;
+}
+
+td {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+/* tr:nth-child(even) {
+  background-color: #dddddd;
+} */
+    </style>
+</head>
+
+<body >
+
+    <div id="header">
+        <a href="index2.html" id="logo"><img src="images/logo1.jpg" width="310" height="114" alt="" title=""></a>
+        <ul class="navigation">
+            <li class="active"><a href="index2.html">Home</a></li>
+            <li><a href="about2.html">About us</a></li>
+            <li><a href="service2.html">Service</a></li>
+            <li><a href="contact2.html">Contact us</a></li>
+            <li><a href="appointmentpo.html">Appointment</a></li>
+            <li><a href="recordpo.html">Record</a></li>
+            <li><a href="notipo.html">Notification</a></li>
+            <li><a href="addpet.html">Add Pet</a></li>
+            <li><a href="index.html">Sign Out</a></li>
+        </ul>
+    </div>
+    <div id="body" class="container">
+        <br><br><br><br>
+        <!-- <div class="banner">&nbsp;</div> -->
+            
+            <div id="content">
+            
+                <div class="content">
+
+                    <table id="table">
+                          <thead>
+                              <th>Item</th>
+                              <th colspan="3">Value</th>
+                          </thead>
+                          <tbody>
+                              <tr>
+                                  <td>No of Pet</td>
+                                  <td>
+                                      <input type="number" name="noofpet" id="noofpet" value="1" readonly>
+                                  </td>
+                                  <td>
+                                    <button class="btn" id="add"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                                  </td>
+                                <td>
+                                    <button class="btn" id="delete"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                                </td>
+                              </tr>
+                                <tr>
+                                    <td>Type of Pet</td>
+                                    <td colspan="3">
+                                        <select name="typeofpet_1" id="typeofpet_1">
+                                            <option value="">Please Select</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Name</td>
+                                    <td colspan="3">
+                                        <input type="text" name="name_1" id="name_1" required>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Breed</td>
+                                    <td colspan="3">
+                                        <select name="breed_1" id="breed_1" required disabled>
+                                            <option value="">Please Breed</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <!-- <div id="addpet"></div> -->
+                                <!-- <tr>
+                                    <td></td>
+                                    <td colspan="3"></td>
+                                </tr> -->
+                          </tbody>                 
+                    </table>
+                    <br />
+                    <button type="button">Submit</button>
+
+                    
+                </div>
+                
+            </div>
+        </div>
+        <br><br><br><br><br><br>
+
+        <div id="footer">
+            <div id="footnote">
+                <div class="section">
+                        &copy; 2019 <a href="index.html">Lamoureux Clinic & Petshop </a>. All Rights Reserved.
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.2/dist/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.2/dist/additional-methods.min.js"></script>
+    <script>
+        $(document).ready(function(){
+
+
+            $("#add").on("click", function() {
+
+                var lineNo = $("#noofpet").val();
+                lineNo++; 
+
+                markup = "<tr id='rowone_"+lineNo+"'><td>Type of Pet</td><td colspan='3'><select name='typeofpet_'"+lineNo+"' id='typeofpet_"+lineNo+"'><option value=''>Please Select</option></select></td></tr><tr id='rowtwo_"+lineNo+"'><td>Name</td><td colspan='3'><input type='text' name='name_"+lineNo+"' id='name_"+lineNo+"' required></td></tr><tr id='rowthree_"+lineNo+"'><td>Breed</td><td colspan='3'><select name='breed_"+lineNo+"' id='breed_"+lineNo+"' required disabled><option value=''>Please Breed</option></select></td></tr>"; 
+
+                tableBody = $("table tbody"); 
+                tableBody.append(markup); 
+                
+                $("#noofpet").val(lineNo);
+
+            });
+
+            $("#delete").on("click", function() {
+
+                var lineNo = $("#noofpet").val();
+                if (lineNo > 1) {
+                    $('#rowone_'+lineNo+',#rowtwo_'+lineNo+',#rowthree_'+lineNo).remove();
+                    lineNo--; 
+
+                    $("#noofpet").val(lineNo);
+                }
+
+            });
+
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html >
+<html>
+
+<head>
+	<title>Lamoureux Clinic & Petshop</title>
+	<link rel="icon" href="images/evet.png">
+	<meta  charset=iso-8859-1" />
+	<link href="css/style.css" rel="stylesheet" type="text/css" />
+	<!--[if IE 6]>
+		<link href="css/ie6.css" rel="stylesheet" type="text/css" />
+	<![endif]-->
+	<!--[if IE 7]>
+        <link href="css/ie7.css" rel="stylesheet" type="text/css" />  
+	<![endif]-->
+</head>
+
+<body>
+
+	  
+			<div id="header">
+	           		<a href="index.html" id="logo"><img src="images/logo1.jpg" width="310" height="114" alt="" title=""></a>
+					<ul class="navigation">
+						<li ><a href="index.html">Home</a></li>
+						<li><a href="about.html">About us</a></li>
+						<li><a href="service.html">Service</a></li>
+						<li><a href="contact.html">Contact us</a></li>
+						<li><a href="signin.html">Sign In</a></li>
+						<li class="active"><a href="register.html">Sign Up</a></li>
+					</ul>
+			</div>
+			
+			<div id="body">
+			
+			       <div id="content">
+				   <br><br><br>
+						<center><img src="images/signup.png" width="200" height="50"></center>
+						<ul class="section">
+						
+						<center>
+						<form action="database/auth.php" id="formregister">
+						  <div class="container">
+							<p>Please fill in this form to create an account.</p>
+							
+						<table>
+						<tr>
+						<td><b>Select your role :</b> <select name="roles" id="roles" required>
+								  <option value="">Select Roles</option>
+								  <option value="Pet Owner">Pet Owner</option>
+								  <option value="Admin">Admin</option>
+								  <option value="Veterinarian">Veterinarian</option>
+						</select></td>
+						</tr>
+						<tr>
+						<td>
+							<label for="name"><b>Name</b></label>
+							<input type="text" placeholder="Enter Name" name="name" required> 
+						</td>
+						</tr>
+						
+						<tr>
+						<td>
+							<label for="phone"><b>Phone Number</b></label>
+							<input type="number" placeholder="Enter Phone Number" name="phone" required> 
+						</td>
+						</tr>
+						
+						<tr>
+						<td>
+							<label for="email"><b>Email</b></label>
+							<input type="email" placeholder="Enter Email" name="email" required> 
+						</td>
+						</tr>
+						
+						<tr>
+						<td>
+							<label for="psw"><b>Password</b></label>
+							<input type="password" placeholder="Enter Password" name="password" id="password" required> 
+						</td>
+						</tr>
+							
+						<tr>
+						<td>
+							<label for="psw-confirm"><b>Confirmed Password</b></label>
+							<input type="password" placeholder="confirmpassword Password" name="confirmpassword" id="confirmpassword" required>
+						</td>
+						</tr>
+						<tr id="trtypeofpet" hidden>
+							<td>
+								<label for="typeofpet"><b>Type of pet</b></label>
+								<select name="typeofpet" id="typeofpet">
+									<option value="">Please select</option>
+									<option value="CAT">CAT</option>
+									<option value="RABBIT">RABBIT</option>
+									<option value="DOG">DOG</option>
+									<option value="HAMSTER">HAMSTER</option>
+									<option value="BIRD">BIRD</option>
+									<option value="OTHERS">OTHERS</option>
+								</select>
+							</td>
+						</tr>
+						<tr id="trpetname" hidden>
+							<td>
+								<label for="petname"><b>Pet Name</b></label>
+								<input type="text" placeholder="Pet Name" id="petname" name="petname " required>
+							</td>
+						</tr>
+						<tr id="trbreed" hidden>
+							<td>
+								<label for="breed"><b>Breed</b></label>
+								<input type="text" placeholder="Breed" id="breed" name="breed " required>
+							</td>
+						</tr>
+						<tr>
+							<td><span id='error_message'></span></td>
+						</tr>
+						<tr>
+							<td><button type="button" name="register" id="register">Submit</button></td>
+							</tr>
+							<tr>
+							<td><button type="reset" name="reset">Reset</button></td>
+							</tr>
+						</table>
+
+						  </div>
+
+						  <div class="container signin">
+							<p>Already have an account? <a href="signin.html">Sign in</a>.</p>
+						  </div>
+						</form>
+						</center>
+						   
+								</ul>
+			</div>
+			
+			<div id="footer">
+			        
+					<div id="footnote">
+						<div class="section">
+						   &copy; 2019 <a href="index.html">Lamoureux Clinic & Petshop </a>. All Rights Reserved.
+						</div>
+					</div>
+			</div>
+			
+	
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.2/dist/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.2/dist/additional-methods.min.js"></script>
+<script>
+$(document).ready(function() {
+
+	var form = $('#formregister');
+	form.validate({
+		rules: {
+                password: "required",
+                confirmpassword: {
+                    equalTo: "#password"
+                }
+            },
+            messages: {
+                password: " Enter Password",
+                confirmpassword: " Enter Confirm Password Same as Password"
+            }
+	});
+
+	$("#roles").on("change",function(){
+
+		if($("#roles").val() == "Pet Owner"){
+			$("#trtypeofpet,#trpetname,#trbreed").show();
+			$("#typeofpet,#petname,#breed").attr("required",true).val("");
+		} else {
+			$("#trtypeofpet,#trpetname,#trbreed").hide();
+			$("#typeofpet,#petname,#breed").attr("required",false).val("");
+		}
+
+	});
+
+
+	$("#register").on("click",function(){
+
+		if(form.valid()) {
+
+			$.ajax({
+				url: form.attr("action"),
+				data: {
+					'function': 'register',
+					'data': form.serializeArray()
+				},
+				crossDomain: false,
+				dataType:'json',
+				type:'post',
+				success: function(data){
+
+					if(data.status == "success") {
+						$('#error_message').text(data.message);
+					} else if (data.status == "failed") {
+						$('#error_message').text(data.message);
+					}
+
+				}
+			});
+		}
+	});
+
+});
+</script>
+
+
+
+</html>

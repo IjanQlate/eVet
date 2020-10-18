@@ -1,0 +1,70 @@
+<!DOCTYPE html >
+<html>
+
+<head>
+	<title>Lamoureux Clinic & Petshop</title>
+	<link rel="icon" href="images/evet.png">
+	<meta  charset=iso-8859-1" />
+	<link href="css/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+	  
+			<div id="header">
+	           		<a href="index2.html" id="logo"><img src="images/logo1.jpg" width="310" height="114" alt="" title=""></a>
+					<ul class="navigation">
+						<li><a href="index2.html">Home</a></li>
+						<li><a href="about2.html">About us</a></li>
+						<li><a href="service2.html">Service</a></li>
+						<li><a href="contact2.html">Contact us</a></li>
+						<li class="active"><a href="appointmentpo.html">Appointment</a></li>
+						<li><a href="recordpo.html">Record</a></li>
+						<li><a href="notipo.html">Notification</a></li>
+						<li><a href="index.html">Sign Out</a></li>
+					</ul>
+			</div>
+			
+			<div id="body">
+			
+			       <div id="content">
+				   <br><br><br>
+						<img src="images/appointment.png" width="250" height="60">
+						<ul class="section">
+						<center>
+						<table border = "0">
+						<tr>
+						<td><img src="images/pb.jpg" width="300" height="200"></td>
+						<td><img src="images/boarding.png" width="180" height="50"> <br>
+						<a href="booking.html"><img src="images/booknow.png" width="180" height="60"></td>
+						</tr>
+						<tr>
+						<td><img src="images/pg.jpg" width="300" height="200"></td>
+						<td><img src="images/grooming.png" width="180" height="50"> <br>
+						<a href="booking.html"><img src="images/booknow.png" width="180" height="60"></td>
+						</tr>
+						<tr>
+						<td><img src="images/vs.jpg" width="300" height="200"></td>
+						<td><img src="images/vs.png" width="250" height="50"> <br>
+						<a href="booking.html"><img src="images/booknow.png" width="180" height="60"></td>
+						</tr>
+						</table>
+						</center>
+						
+						
+							   
+								</ul>
+			</div>
+			
+			<div id="footer">
+			        
+					<div id="footnote">
+						<div class="section">
+						   &copy; 2019 <a href="index.html">Lamoureux Clinic & Petshop </a>. All Rights Reserved.
+						</div>
+					</div>
+			</div>
+			
+	
+</body>
+</html>
