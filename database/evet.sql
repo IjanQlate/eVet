@@ -24,14 +24,40 @@ CREATE TABLE IF NOT EXISTS `animal` (
   `petname` varchar(255) DEFAULT NULL,
   `breed` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
--- Dumping data for table evet.animal: ~1 rows (approximately)
+-- Dumping data for table evet.animal: ~2 rows (approximately)
 DELETE FROM `animal`;
 /*!40000 ALTER TABLE `animal` DISABLE KEYS */;
 INSERT INTO `animal` (`id`, `customerid`, `typeofpet`, `petname`, `breed`) VALUES
-	(1, '2', 'RABBIT', 'Pet Name', 'Breed');
+	(6, '1', 'Dog', 'Nama Satu', 'Bull Dog'),
+	(7, '1', 'Fish', 'Nama Dua', 'Ikan Kering');
 /*!40000 ALTER TABLE `animal` ENABLE KEYS */;
+
+-- Dumping structure for table evet.appointment
+CREATE TABLE IF NOT EXISTS `appointment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `customerid` varchar(50) DEFAULT NULL,
+  `service` varchar(50) DEFAULT NULL,
+  `petname` varchar(250) DEFAULT NULL,
+  `dateappointment` varchar(50) DEFAULT NULL,
+  `timeappointment` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+
+-- Dumping data for table evet.appointment: ~0 rows (approximately)
+DELETE FROM `appointment`;
+/*!40000 ALTER TABLE `appointment` DISABLE KEYS */;
+INSERT INTO `appointment` (`id`, `customerid`, `service`, `petname`, `dateappointment`, `timeappointment`) VALUES
+	(1, '1', 'Pet Boarding', 'Nama Satu', '2020-10-20', '00:51'),
+	(2, '1', 'Pet Boarding', 'Nama Satu', '2020-10-20', '00:51'),
+	(3, '1', 'Pet Boarding', 'Nama Satu', '2020-10-20', '00:51'),
+	(4, '1', 'Pet Boarding', 'Nama Satu', '2020-10-20', '00:51'),
+	(5, '1', 'Pet Boarding', 'Nama Satu', '2020-10-20', '00:51'),
+	(6, '1', 'Pet Boarding', 'Nama Satu', '2020-10-20', '00:53'),
+	(7, '1', 'Pet Grooming', 'Nama Dua', '2020-10-20', '00:55'),
+	(8, '1', 'Pet Boarding', 'Nama Satu', '2020-10-20', '00:56');
+/*!40000 ALTER TABLE `appointment` ENABLE KEYS */;
 
 -- Dumping structure for table evet.breed
 CREATE TABLE IF NOT EXISTS `breed` (

@@ -33,29 +33,35 @@
 						<ul class="section">
 						
 						<center>
-						<form action="index2.html" method="post">
+						<form action="index2.html" method="post" id="formappointment">
 						  <div class="container">
 							
 						<table align="center" width="50%" border="0">
 							<tr>
 						<td>
-						Booking type :   <select name="roles">
+						Service :   <select name="service" id="service" required>
+									<option value="">Select Service</option>
 								  <option value="Pet Boarding">Pet Boarding</option>
 								  <option value="Pet Grooming">Pet Grooming</option>
 								  <option value="Veterinarian Services">Veterinarian Services</option>
 								  </select>
 						</td>
 						<tr>
+							<td>Pet Name :   <select name="petname" id="petname" required>
+								  	<option value="">Select Pet Name</option>
+								  </select>  </td>
+						</tr>
+						<tr>
 						<td>
-						Choose date (Friday close) :   <input type="date" name="date">  
+						Choose date (Friday close) :   <input type="date" name="dateappointment" id="dateappointment" required>  
 						</td>
 						</tr>
 						<tr>
 						<td>
-						Select a time (Working hour 9:00 am - 9:00 pm) :   <input type="time" name="time"> 
+						Select a time (Working hour 9:00 am - 9:00 pm) :   <input type="time" name="timeappointment" id="timeappointment" required> 
 						</td>
 						</tr>
-							<td><button type="submit" name="submit">Submit</button></td>
+							<td><button type="button" name="submit" id="BtnSubmit">Submit</button></td>
 							</tr>
 							<tr>
 							<td><button type="reset" name="reset">Reset</button></td>
@@ -79,6 +85,61 @@
 					</div>
 			</div>
 			
-	
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.2/dist/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.2/dist/additional-methods.min.js"></script>
+    <script>
+    	$(document).ready(function(){
+
+    			var form = $("#formappointment");
+    			form.validate();
+
+    			$.ajax({
+    				url: "database/booking.php",
+    				method: "POST",
+    				dataType: "json",
+    				data: {
+    					"function": "displaydropdown"
+    				},
+    				success: function (response) {
+
+					for (i = 0; i < response.length; i++)
+					{ 
+						 $('#petname').append($('<option>',
+						 {
+							value: response[i],
+							text : response[i] 
+						}));
+					}
+
+
+
+    				}
+    			});
+
+
+    			$("#BtnSubmit").on("click", function() {
+
+    				if(form.valid()) {
+
+    					$.ajax({
+    						url: "database/booking.php",
+    						method: "POST",
+    						dataType: "json",
+    						data: form.serialize() + "&function=saveappointment",
+    						success: function (response) {
+    							console.log(response);
+    							alert ("Status=>"+response.status+",\nMessage=>"+response.message);
+    						}
+
+    					});
+
+    				}
+
+    			});
+
+
+    	});
+    </script>
 </body>
 </html>
