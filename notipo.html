@@ -17,7 +17,8 @@
 						<li><a href="index2.html">Home</a></li>
 						<li><a href="about2.html">About us</a></li>
 						<li><a href="service2.html">Service</a></li>
-						<li><a href="contact2.html">Contact us</a></li>
+						<li><a href="addpet.html">Add Pet</a></li>
+						<!-- <li><a href="contact2.html">Contact us</a></li> -->
 						<li><a href="appointmentpo.html">Appointment</a></li>
 						<li><a href="recordpo.html">Record</a></li>
 						<li class="active"><a href="notipo.html">Notification</a></li>
@@ -62,16 +63,23 @@ tr:nth-child(even) {
 									<thead>
 										<th>Date</th>
 										<th>Time</th>
+										<th>Pet Name</th>
 										<th>Appointment</th>
+										<th>Note</th>
 									</thead>
 									<tbody>	
 									</tbody>
 							</table>
+							<br><br>
+							<!-- <a href="notification.html" id="logo"><img src="images/back.png" width="50" height="50" alt="" title=""></a> --> 
 						
 						<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 							   
 								</ul>
-			</div>
+			
+			
+			
+	</div>
 			
 			<div id="footer">
 			        
@@ -102,7 +110,7 @@ $(document).ready(function(){
     						// return false;
 					for (i = 0; i < response.length; i++)
 					{ 
-						 $('#tablenotipo tbody').append("<tr><td>"+response[i].date+"</td><td>"+response[i].time+"</td><td>"+response[i].service+"</td></tr>");
+						 $('#tablenotipo tbody').append("<tr><td>"+response[i].date+"</td><td>"+response[i].time+"</td><td>"+response[i].petname+"</td><td>"+response[i].service+"</td><td>"+response[i].note+"</td></tr>");
 					}
 
 

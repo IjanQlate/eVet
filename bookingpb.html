@@ -21,7 +21,7 @@
 						<!-- <li><a href="contact2.html">Contact us</a></li> -->
 						<li class="active"><a href="appointmentpo.html">Appointment</a></li>
 						<li><a href="recordpo.html">Record</a></li>
-						<li><a href="notification.html">Notification</a></li>
+						<li><a href="notipo.html">Notification</a></li>
 						<li><a href="index.html">Sign Out</a></li>
 					</ul>
 			</div>
@@ -37,15 +37,16 @@
 						<form action="index2.html" method="post" id="formappointment">
 						  <div class="container">
 							
-						<table align="center" width="50%" border="0">
+						<table align="center" width="65%" border="0">
 							<tr>
 						<td>
-						Service :   <select name="service" id="service" required>
-									<option value="">Select Service</option>
+						Service: <input type="text" id="service" name="service" value="Pet Boarding" readonly>
+						<!-- <select name="service" id="service" required>
+									<!-- <option value="">Select Service</option> 
 								  <option value="Pet Boarding">Pet Boarding</option>
 								  <option value="Pet Grooming">Pet Grooming</option>
 								  <option value="Veterinarian Services">Veterinarian Services</option>
-								  </select>
+								  </select> -->
 						</td>
 						<tr>
 							<td>Pet Name :   <select name="petname" id="petname" required>
@@ -60,6 +61,21 @@
 						<tr>
 						<td>
 						Select a time (Working hour 9:00 am - 9:00 pm) :   <input type="time" name="timeappointment" id="timeappointment" required> 
+						</td>
+						</tr>
+						<tr>
+						<td>
+						Select a cage : <select name="note" id="note" required>
+								  <option value="">Select Cage</option> 
+								  <option value="Cage 1 Layer">Cage 1 Layer</option>
+								  <option value="Cage 3 Layer">Cage 3 Layer</option>
+								  </select>
+						</td>
+						</tr>
+						<tr>
+						<td><center>
+						<img src="images/cage1.png" width="200" height="200"> 
+						<img src="images/cage3.png" width="300" height="300">
 						</td>
 						</tr>
 							<td><button type="button" name="submit" id="BtnSubmit">Submit</button></td>

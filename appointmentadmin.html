@@ -30,11 +30,18 @@
 						
 						<center>
 							
-						Booking type :   <select name="roles">
+						View Booking :   <select name="roles">
+								  <option value="All">All</option>
 								  <option value="Pet Boarding">Pet Boarding</option>
 								  <option value="Pet Grooming">Pet Grooming</option>
 								  <option value="Veterinarian Services">Veterinarian Services</option>
-								  </select><br><br>
+								  </select>
+						
+						Date : <input type="date" name="datepick" id="datepick">
+
+						<input type="button" value="Search">
+								 
+								  <br><br>
 <style>								  
 table {
   font-family: arial, sans-serif;
@@ -59,7 +66,7 @@ tr:nth-child(even) {
 
 </style>
 </head>
-<body>Upcoming appointment<br><br>
+<body>Upcoming appointment (table appointment & pengguna) - all data<br><br>
 						<table>
 							  <tr>
 								<th>Date</th>

@@ -1,5 +1,7 @@
 <?php
 include 'dbconfig.php';
+session_start();
+$sessionid = $_SESSION['id'];
 
 if($_POST['function'] == 'displaypet')
 {
@@ -43,7 +45,7 @@ if($_POST['function'] == 'displaypet')
 	$conn->close();
 } else if($_POST['function'] == 'savedata') {
 	
-	$sessionname = 1;
+	$sessionname = $sessionid;
 	//print_r($_POST);
 	
 	for ($i=1; $i<=$_POST['noofpet']; $i++)

@@ -23,7 +23,7 @@
 						<li ><a href="index.html">Home</a></li>
 						<li><a href="about.html">About us</a></li>
 						<li><a href="service.html">Service</a></li>
-						<li><a href="contact.html">Contact us</a></li>
+						<!-- <li><a href="contact.html">Contact us</a></li> -->
 						<li class="active"><a href="signin.html">Sign In</a></li>
 						<li><a href="register.html">Sign Up</a></li>
 					</ul>
@@ -112,7 +112,7 @@ $(document).ready(function() {
 					console.log(data);
 					if(data.status == "success") {
 						$('#error_message').text(data.message);
-						window.location.replace("http://localhost/eVet/"+data.url);
+						window.location.replace("http://localhost/eVetnew/"+data.url);
 					} else if (data.status == "failed") {
 						$('#error_message').text(data.message);
 					}

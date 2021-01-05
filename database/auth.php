@@ -3,6 +3,33 @@ include 'dbconfig.php';
 
 // - login tu msuk ke page yg spatutnya lah. petowner (index2) admin (indexadmin) veterinarian (indexvet)
 
+/*if(isset($_SESSION['id'])!="")
+{
+	header("Location: index.php");
+}
+
+if($_POST['function'] == 'login')
+{
+	$role = mysql_real_escape_string($_POST['role']);
+	$email = mysql_real_escape_string($_POST['username']);
+	$password = mysql_real_escape_string($_POST['password']);
+	$res=mysql_query("SELECT * FROM users WHERE email='$email'");
+	$row=mysql_fetch_array($res);
+	
+	if($row['password']==md5($password))
+	{
+		$_SESSION['id'] = $row['id'];
+		header("Location: index.php");
+	}
+	else
+	{
+		?>
+        <script>alert('wrong details');</script>
+        <?php
+	}
+	
+}*/
+
 if($_POST['function'] == 'login')
 {
     $role = $_POST['data']['0']['value'];
@@ -21,7 +48,7 @@ if($_POST['function'] == 'login')
             if ($row['password'] == $password) {
 
                 session_start();
-                $_SESSION['name'] = $row['fullname'];
+                $_SESSION['id'] = $row['id'];
         
                 if ($role == 'Pet Owner') { $url = 'index2.html'; }
                 if ($role == 'Admin') { $url = 'indexadmin.html'; }
@@ -49,9 +76,9 @@ if($_POST['function'] == 'login')
     $email = $_POST['data']['3']['value'];
     $password = $_POST['data']['4']['value'];
     $confirmpassword = $_POST['data']['5']['value'];
-    $typeofpet = $_POST['data']['6']['value'];
+   /* $typeofpet = $_POST['data']['6']['value'];
     $petname = $_POST['data']['7']['value'];
-    $breed = $_POST['data']['8']['value'];
+    $breed = $_POST['data']['8']['value']; */
 
     // Check email address exist ke x
     $sql = "SELECT * FROM pengguna WHERE username = '$email'";
@@ -76,8 +103,8 @@ if($_POST['function'] == 'login')
                 $customerid = $row['id'];
                 
                 // Insert into table animal
-                $sql = "INSERT INTO animal (customerid, typeofpet, petname,breed)
-                VALUES ('$customerid','$typeofpet','$petname','$breed')";
+              /*  $sql = "INSERT INTO animal (customerid, typeofpet, petname,breed)
+                VALUES ('$customerid','$typeofpet','$petname','$breed')"; */
 
                 if ($conn->query($sql) === TRUE) {
                     echo json_encode(array('status'=>'success', 'message'=>'Successfully registered new user'));

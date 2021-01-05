@@ -23,7 +23,7 @@
 						<li ><a href="index.html">Home</a></li>
 						<li><a href="about.html">About us</a></li>
 						<li><a href="service.html">Service</a></li>
-						<li><a href="contact.html">Contact us</a></li>
+						<!-- <li><a href="contact.html">Contact us</a></li> -->
 						<li><a href="signin.html">Sign In</a></li>
 						<li class="active"><a href="register.html">Sign Up</a></li>
 					</ul>
@@ -81,10 +81,10 @@
 						<tr>
 						<td>
 							<label for="psw-confirm"><b>Confirmed Password</b></label>
-							<input type="password" placeholder="confirmpassword Password" name="confirmpassword" id="confirmpassword" required>
+							<input type="password" placeholder="Confirmed Password" name="confirmpassword" id="confirmpassword" required>
 						</td>
 						</tr>
-						<tr id="trtypeofpet" hidden>
+					<!--	<tr id="trtypeofpet" hidden>
 							<td>
 								<label for="typeofpet"><b>Type of pet</b></label>
 								<select name="typeofpet" id="typeofpet">
@@ -112,9 +112,9 @@
 						</tr>
 						<tr>
 							<td><span id='error_message'></span></td>
-						</tr>
+						</tr> -->
 						<tr>
-							<td><button type="button" name="register" id="register">Submit</button></td>
+							<td><button type="button" name="register" id="register" button onclick="myFunction()">Submit</button></td>
 							</tr>
 							<tr>
 							<td><button type="reset" name="reset">Reset</button></td>
@@ -147,6 +147,12 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.2/dist/jquery.validate.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.2/dist/additional-methods.min.js"></script>
 <script>
+
+function myFunction() {
+  alert("Successfully Registered!");
+  location.replace('signin.html');
+}
+
 $(document).ready(function() {
 
 	var form = $('#formregister');
@@ -168,10 +174,11 @@ $(document).ready(function() {
 		if($("#roles").val() == "Pet Owner"){
 			$("#trtypeofpet,#trpetname,#trbreed").show();
 			$("#typeofpet,#petname,#breed").attr("required",true).val("");
-		} else {
-			$("#trtypeofpet,#trpetname,#trbreed").hide();
-			$("#typeofpet,#petname,#breed").attr("required",false).val("");
-		}
+		} 
+		/* else {
+				$("#trtypeofpet,#trpetname,#trbreed").hide();
+				$("#typeofpet,#petname,#breed").attr("required",false).val("");
+		} */
 
 	});
 
