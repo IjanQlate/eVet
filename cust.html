@@ -6,6 +6,7 @@
 	<link rel="icon" href="images/evet.png">
 	<meta  charset=iso-8859-1" />
 	<link href="css/style.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
 </head>
 
 <body>
@@ -32,7 +33,7 @@
 						<form action="cust2.html" method="post">
 						  <div class="container">
 						  
-							Search Type :   <select name="searchtype">
+							<!-- Search Type :   <select name="searchtype">
 								<option value="All">Name</option>
 								<option value="Pet Boarding">No Tel</option>
 								<option value="Pet Grooming">Email</option>
@@ -41,22 +42,16 @@
 							
 							<input type="text" name="" id="">
 
-							<input type="button" value="Search">
-							table pengguna & animal
+							<input type="button" value="Search"> -->
+							<!-- table pengguna & animal -->
 							<br><br><br>
-							<table>
-								<tr>
-								  <th>Date</th>
-								  <th>Time</th>
-								  <th>Pet Owner Id</th>
-								  <th>Pet Id</th>
-								</tr>
-								<tr>
-								  <td>12/1/2020</td>
-								  <td>10:00 am</td>
-								  <td>PO12</td>
-								  <td>P12</td></tr>
-								<tr>
+							<table id="example" class="display" style="width:100%;">
+								<thead>
+									<th>Name</th>
+									<th>No Tel</th>
+									<th>Email</th>
+									<th>Pet Name</th>
+								</thead>
 							</table>
 
 
@@ -98,7 +93,49 @@
 						</div>
 					</div>
 			</div>
-			
-	
+			<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+			<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+			<script>
+				$(document).ready(function() {
+					// Setup - add a text input to each footer cell
+					$('#example thead tr').clone(true).appendTo( '#example thead' );
+					$('#example thead tr:eq(1) th').each( function (i) {
+						var title = $(this).text();
+						$(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+				 
+						$( 'input', this ).on( 'keyup change', function () {
+							if ( table.column(i).search() !== this.value ) {
+								table
+									.column(i)
+									.search( this.value )
+									.draw();
+							}
+						} );
+					} );
+				 
+					// DataTable
+					var table = $('#example').DataTable({
+						scrollX: true,
+						'ajax': {
+						  'url': 'database/customerdata.php',
+						  'cache': false,
+						  'data' : function(d){
+							  d.function = "display"
+						  },
+						  'type': "GET",
+						  'dataSrc': 'customerdata'
+						  },
+						  'columns': [
+						  { 'data': 'customerid' },
+						  { 'data': 'phonenumber' },
+						  { 'data': 'username' },
+						  { 'data': 'petname' }
+						  ],
+						  'rowId': 'id',
+						orderCellsTop: true,
+						fixedHeader: true
+					});
+				} );
+							</script>
 </body>
 </html>

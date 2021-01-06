@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `appointment` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
 
--- Dumping data for table evet.appointment: ~10 rows (approximately)
+-- Dumping data for table evet.appointment: ~9 rows (approximately)
 DELETE FROM `appointment`;
 /*!40000 ALTER TABLE `appointment` DISABLE KEYS */;
 INSERT INTO `appointment` (`id`, `customerid`, `service`, `petname`, `dateappointment`, `timeappointment`, `note`) VALUES
@@ -157,11 +157,13 @@ CREATE TABLE IF NOT EXISTS `record` (
   `date` date DEFAULT NULL,
   `record` varchar(5000) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table evet.record: ~0 rows (approximately)
 DELETE FROM `record`;
 /*!40000 ALTER TABLE `record` DISABLE KEYS */;
+INSERT INTO `record` (`id`, `customerid`, `date`, `record`) VALUES
+	(1, 1, '2020-12-01', 'Cantik Bossku');
 /*!40000 ALTER TABLE `record` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

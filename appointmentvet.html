@@ -6,6 +6,7 @@
 	<link rel="icon" href="images/evet.png">
 	<meta  charset=iso-8859-1" />
 	<link href="css/style.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
 </head>
 
 <body>
@@ -55,78 +56,30 @@ tr:nth-child(even) {
 </head>
 <body>
 	
-	Date : <input type="date" name="datepick" id="datepick">
+	<!-- Date : <input type="date" name="datepick" id="datepick">
 
-	<input type="button" value="Search">
+	<input type="button" value="Search"> -->
 			 
 			  <br><br>
-	Upcoming appointment (pengguna & appointment) where Veterinarian Services<br><br>
-
-							<table>
-							  <tr>
-								<th>Date</th>
-								<th>Time</th>
-								<th>Pet Owner Id</th>
-								<th>Pet Id</th>
-								<th>Pet Record</th>
-							  </tr>
-							  <tr>
-								<td>15/1/2020</td>
-								<td>10:00 am</td>
-								<td>PO12</td>
-								<td>P12</td>
-								<td>&nbsp&nbsp&nbsp<a href="recordvet.html"><img src = "images/view.png" width="60" height="20"></a></td>
-							  </tr>
-							  <tr>
-								<td>15/1/2020</td>
-								<td>10:30 am</td>
-								<td>PO14</td>
-								<td>P14</td>
-								<td>&nbsp&nbsp&nbsp<a href="recordvet.html"><img src = "images/view.png" width="60" height="20"></a></td>
-							  </tr>
-							  <tr>
-								<td>15/1/2020</td>
-								<td>11:30 am</td>
-								<td>PO11</td>
-								<td>P11</td>
-								<td>&nbsp&nbsp&nbsp<a href="recordvet.html"><img src = "images/view.png" width="60" height="20"></a></td>
-							  </tr>
-							  <tr>
-								<td>15/1/2020</td>
-								<td>1:30 pm</td>
-								<td>PO6</td>
-								<td>P6</td>
-								<td>&nbsp&nbsp&nbsp<a href="recordvet.html"><img src = "images/view.png" width="60" height="20"></a></td>
-							  </tr>
-							  <tr>
-								<td>15/1/2020</td>
-								<td>2:20 pm</td>
-								<td>PO20</td>
-								<td>P20</td>
-								<td>&nbsp&nbsp&nbsp<a href="recordvet.html"><img src = "images/view.png" width="60" height="20"></a></td>
-							  </tr>
-							  <tr>
-								<td>15/1/2020</td>
-								<td>3:30 pm</td>
-								<td>PO10</td>
-								<td>P10</td>
-								<td>&nbsp&nbsp&nbsp<a href="recordvet.html"><img src = "images/view.png" width="60" height="20"></a></td>
-							  </tr>
-							  <tr>
-								<td>15/1/2020</td>
-								<td>4:00 pm</td>
-								<td>PO15</td>
-								<td>P15</td>
-								<td>&nbsp&nbsp&nbsp<a href="recordvet.html"><img src = "images/view.png" width="60" height="20"></a></td>
-							  </tr>
-							  <tr>
-								<td>15/1/2020</td>
-								<td>6:15 pm</td>
-								<td>PO3</td>
-								<td>P3</td>
-								<td>&nbsp&nbsp&nbsp<a href="recordvet.html"><img src = "images/view.png" width="60" height="20"></a></td>
-							  </tr>
-							</table>
+	Upcoming appointment<br><br>
+	<table id="example" class="display" style="width:100%;">
+		<thead>
+			<th>Date</th>
+			<th>Time</th>
+			<th>Owner Name</th>
+			<th>Pet Name</th>
+			<th>Pet Record</th>
+		</thead>
+		<!-- <tfoot>
+            <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Owner Name</th>
+                <th>Pet Name</th>
+                <th>Note</th>
+            </tr>
+        </tfoot> -->
+	</table>
 							
 						
 						<br><br><br><br><br><br><br><br><br>
@@ -141,6 +94,51 @@ tr:nth-child(even) {
 					</div>
 			</div>
 			
-	
+			<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+			<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+			<script>
+$(document).ready(function() {
+    // Setup - add a text input to each footer cell
+    $('#example thead tr').clone(true).appendTo( '#example thead' );
+    $('#example thead tr:eq(1) th').each( function (i) {
+        var title = $(this).text();
+        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+ 
+        $( 'input', this ).on( 'keyup change', function () {
+            if ( table.column(i).search() !== this.value ) {
+                table
+                    .column(i)
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    } );
+ 
+    // DataTable
+    var table = $('#example').DataTable({
+		scrollX: true,
+		'ajax': {
+          'url': 'database/appointmentvet.php',
+          'cache': false,
+          'data' : function(d){
+              d.function = "display"
+          },
+          'type': "GET",
+          'dataSrc': 'recordappointment'
+      	},
+      	'columns': [
+          { 'data': 'dateappointment' },
+          { 'data': 'timeappointment' },
+          { 'data': 'customerid' },
+          { 'data': 'petname' },
+          { 'data': 'note' }
+      	],
+      	'rowId': 'id',
+		orderCellsTop: true,
+        fixedHeader: true
+    });
+} );
+			</script>
+			
 </body>
 </html>

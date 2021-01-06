@@ -49,10 +49,11 @@ if($_POST['function'] == 'login')
 
                 session_start();
                 $_SESSION['id'] = $row['id'];
-        
+       
                 if ($role == 'Pet Owner') { $url = 'index2.html'; }
                 if ($role == 'Admin') { $url = 'indexadmin.html'; }
                 if ($role == 'Veterinarian') { $url = 'indexvet.html'; }
+                $_SESSION['role'] = $role;
         
                 echo json_encode(array('status'=>'success', 'message'=>'Successfully authenticated', 'url'=>$url));
 

@@ -6,6 +6,10 @@
 	<link rel="icon" href="images/evet.png">
 	<meta  charset=iso-8859-1" />
 	<link href="css/style.css" rel="stylesheet" type="text/css" />
+	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.dataTables.min.css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.1/css/select.dataTables.min.css">
 </head>
 
 <body>
@@ -53,81 +57,37 @@ tr:nth-child(even) {
 
 </style>
 
-Only for VET login
-Search Type :   <select name="searchtype">
-	<option value="All">Name</option>
-	<option value="Pet Boarding">No Tel</option>
-	<option value="Pet Grooming">Email</option>
-	<option value="Veterinarian Services">Pet Name</option>
-	</select>
-
-<input type="text" name="" id="">
-
-<input type="button" value="Search">
-table appointment (insert table record)
-<br><br><br>
-
-						<!-- <h3>Pet Id :</h3> 
-							<input list="petid"  placeholder="                 P12">
-							<datalist id="petid">
-								<option value="P1">
-								<option value="P2">
-								<option value="P3">
-								<option value="P4">
-								<option value="P5">
-								<option value="P6">
-								<option value="P7">
-								<option value="P8">
-								<option value="P9">
-								<option value="P10">
-								<option value="P11">
-								<option value="P12">
-								<option value="P13">
-								<option value="P14">
-								<option value="P15">
-								<option value="P16">
-								<option value="P17">
-								<option value="P18">
-								<option value="P19">
-								<option value="P20">
-								</datalist> -->
+<br>
 							</form>
-<br><br>
-							<table>
-							  <tr>
-								<th>Date</th>
-								<th>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-								&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-								&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Record 
-								&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-								&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-								&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
-							  </tr>
-							  <tr>
-								<td>12/5/2018</td>
-								<td>Broken leg</td>
-							  </tr>
-							  <tr>
-								<td>12/11/2018</td>
-								<td>Flu</td>
-							  </tr>
-							  <tr>
-								<td>9/1/2019</td>
-								<td>Diarrhea</td>
-							  </tr>
-							  <tr>
-								<td>20/7/2019</td>
-								<td>Vomit</td>
-							  </tr>
-							  <tr>
-								<td>29/9/2019</td>
-								<td>Germs infections</td>
-							  </tr>
-							</table><br>
-							&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-							<!--<a href="edit.html">--><img src="images/edit.png" width="25" height="25"></a>
-							<!--a href="add.html">--><img src="images/add.png" width="20" height="20"></a>
-							<!--<a href="delete.html">--><img src="images/delete.png" width="23" height="24"></a>
+
+<br>
+<div id="formDiv" hidden>
+Customer Name: <select name="customername" id="customername">
+					<option value="">Select Customer Name</option>
+				</select>
+Date: <input type="date" name="datecustomer" id="datecustomer">
+Record: <input type="text" name="recorddata" id="recorddata">
+<input type="button" id="BtnAdd" value="Add">
+<input type="button" id="BtnEdit" value="Edit">
+<input type="button" id="BtnCancel" value="Cancel">
+<br><br><br>
+</div>
+<table id="example" class="display" style="width:100%;">
+	<thead>
+		<th>Customer Name</th>
+		<th>Date</th>
+		<th>Record</th>
+	</thead>
+	<!-- <tfoot>
+		<tr>
+			<th>Date</th>
+			<th>Time</th>
+			<th>Owner Name</th>
+			<th>Pet Name</th>
+			<th>Note</th>
+		</tr>
+	</tfoot> -->
+</table>
 						
 						<br><br><br><br><br><br><br><br><br>
 							   
@@ -140,7 +100,109 @@ table appointment (insert table record)
 						</div>
 					</div>
 			</div>
-			
+			<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+			<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+			<script src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>
+			<script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
+			<script>
+$(document).ready(function() {
+    // Setup - add a text input to each footer cell
+    $('#example thead tr').clone(true).appendTo( '#example thead' );
+    $('#example thead tr:eq(1) th').each( function (i) {
+        var title = $(this).text();
+        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+ 
+        $( 'input', this ).on( 'keyup change', function () {
+            if ( table.column(i).search() !== this.value ) {
+                table
+                    .column(i)
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    } );
+ 
+    // DataTable
+    var table = $('#example').DataTable({
+		scrollX: true,
+		select: true,
+		'ajax': {
+          'url': 'database/recordvet.php',
+          'cache': false,
+          'data' : function(d){
+              d.function = "display"
+          },
+          'type': "GET",
+          'dataSrc': 'recordappointment'
+      	},
+      	'columns': [
+          { 'data': 'fullname' },
+          { 'data': 'date' },
+          { 'data': 'record' }
+      	],
+      	'rowId': 'id',
+		orderCellsTop: true,
+		fixedHeader: true,
+		dom: 'Bfrtip',
+        buttons: [
+            // {
+            //     text: 'Add',
+            //     action: function ( e, dt, node, config ) {
+			// 		$("#formDiv").attr("hidden", false);
+			// 		$("#BtnAdd").attr("hidden", false);
+			// 		$("#BtnEdit").attr("hidden", true);
+
+			// 		$("#customername,#datecustomer,#recorddata").val("");
+            //     }
+			// },
+			{
+                text: 'Edit',
+                action: function ( e, dt, node, config ) {
+
+					if (table.row('.selected').id() === undefined) {
+                    	alert("Please select row first");
+					} else {
+						$("#formDiv").attr("hidden", false);
+						$("#BtnAdd").attr("hidden", true);
+						$("#BtnEdit").attr("hidden", false);
+
+						$("#customername").val(table.row('.selected').data().fullname);
+						$("#datecustomer").val(table.row('.selected').data().date);
+						$("#recorddata").val(table.row('.selected').data().record);
+					}
+
+
+                }
+            },
+			{
+                text: 'Delete',
+                action: function ( e, dt, node, config ) {
+					if (table.row('.selected').id() === undefined) {
+                    	alert("Please select row first");
+					} else {
+
+					}
+                }
+            }
+        ]
+	});
+	
+	// $("#BtnAdd").click(function() {
+
+	// 	if ()
+
+	// });
+
+
+	$("#BtnCancel").click(function() {
+
+		$("#formDiv").attr("hidden", true);
+
+	});
+
+} );
+			</script>
 	
 </body>
 </html>
