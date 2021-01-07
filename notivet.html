@@ -30,10 +30,9 @@
 						<ul class="section">
 						
 						<center>
-						<form action="indexvet.html" method="post">
 						  <div class="container">
 						  
-							Search Type :   <select name="searchtype">
+							<!-- Search Type :   <select name="searchtype">
 								<option value="All">Name</option>
 								<option value="Pet Boarding">No Tel</option>
 								<option value="Pet Grooming">Email</option>
@@ -44,28 +43,52 @@
 
 							<input type="button" id="BtnSearch" value="Search">
 							table appointment (insert new data)
-							<br><br><br>
+							<br><br><br> -->
 						  
 						<br><br>
 								  
 						<table align="center" width="50%" border="0">
-							
+						<tr>
+							<td>
+								Customer Name
+								<select name="customername" id="customername">
+									<option value="">Select Customer Name</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Service
+								<select name="service" id="service">
+									<option value="Veterinarian Services">Veterinarian Services</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Pet Name
+								<select name="petname" id="petname">
+									<option value="">Select Pet Name</option>
+								</select>
+							</td>
+						</tr>
+
 						<tr>
 						<td>
-						Choose date (Friday close) :   <input type="date" name="date">  
+						Choose date (Friday close) :   <input type="date" name="date" id="date">  
 						</td>
 						</tr>
 						<tr>
 						<td>
-						Select a time (Working hour 9:00 am - 9:00 pm) :   <input type="time" name="time"> 
+						Select a time (Working hour 9:00 am - 9:00 pm) :   <input type="time" name="time" id="time"> 
 						</td>
 						</tr>
 						<td>
-						Update Notification :  <input type="textarea" rows="50" cols="50">
+						Update Notification :  <input type="textarea" name="notification" id="notification" rows="50" cols="50">
 						</textarea> 
 						</td>
 						</tr>
-							<td><a href="indexvet.html"><button type="submit" name="submit">Submit</button></a></td>
+							<td><button type="submit" name="submit" id="BtnSubmit">Submit</button></td>
 							</tr>
 							<tr>
 							<td><button type="reset" name="reset">Reset</button></td>
@@ -73,7 +96,6 @@
 							</tr>
 						</table>
 						  </div>
-						</form>
 						</center>
   <br><br><br><br><br><br>
 								  
@@ -86,7 +108,83 @@
 						</div>
 					</div>
 			</div>
-			
-	
+			<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+			<script>
+			$(document).ready(function() {
+
+				$.ajax({
+					url: "database/recordvet.php",
+					dataType: "json",
+					type: "POST",
+					'data' : {
+							"function":"displayname"
+					},
+					success: function (data) {
+						console.log(data);
+
+						$.each(data, function (i, item) {
+							$('#customername').append($('<option>', { 
+								value: item.id,
+								text : item.fullname 
+							}));
+						});
+					}
+				});
+
+				$("#customername").change(function() {
+
+					$.ajax({
+						url: "database/recordvet.php",
+						dataType: "json",
+						type: "POST",
+						'data' : {
+								"function":"displaypet",
+								"customerid": $("#customername").val()
+						},
+						success: function (data) {
+							console.log(data);
+							$('#petname').empty().append('<option selected="selected" value="">Select Pet Name</option>');
+							// console.log(data.length);
+							if (data != 'No Data') {
+								$.each(data, function (i, item) {
+									$('#petname').append($('<option>', { 
+										value: item.petname,
+										text : item.petname 
+									}));
+								});
+							}
+
+						}
+					});		
+
+				});
+
+				$("#BtnSubmit").click(function() {
+
+					$.ajax({
+						url: "database/recordvet.php",
+						dataType: "text",
+						type: "POST",
+						'data' : {
+								"function":"addnotification",
+								"customername": $("#customername").val(),
+								"service": $("#service").val(),
+								"petname": $("#petname").val(),
+								"date": $("#date").val(),
+								"time": $("#time").val(),
+								"notification": $("#notification").val()
+						},
+						success: function (data) {
+							console.log(data);
+							alert (data);
+							location.reload();
+						}
+					});
+
+				});
+
+
+			});
+			</script>
 </body>
 </html>

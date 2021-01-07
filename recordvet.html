@@ -74,6 +74,7 @@ Record: <input type="text" name="recorddata" id="recorddata">
 </div>
 <table id="example" class="display" style="width:100%;">
 	<thead>
+		<th>Customer ID</th>
 		<th>Customer Name</th>
 		<th>Date</th>
 		<th>Record</th>
@@ -107,6 +108,27 @@ Record: <input type="text" name="recorddata" id="recorddata">
 			<script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
 			<script>
 $(document).ready(function() {
+
+	$.ajax({
+		url: "database/recordvet.php",
+		dataType: "json",
+		type: "POST",
+		'data' : {
+            	"function":"displayname"
+          },
+		success: function (data) {
+			console.log(data);
+
+			$.each(data, function (i, item) {
+				$('#customername').append($('<option>', { 
+					value: item.id,
+					text : item.fullname 
+				}));
+			});
+		}
+	});
+
+
     // Setup - add a text input to each footer cell
     $('#example thead tr').clone(true).appendTo( '#example thead' );
     $('#example thead tr:eq(1) th').each( function (i) {
@@ -130,32 +152,39 @@ $(document).ready(function() {
 		'ajax': {
           'url': 'database/recordvet.php',
           'cache': false,
-          'data' : function(d){
-              d.function = "display"
+          'data' : {
+            	"function":"display"
           },
-          'type': "GET",
+          'type': "POST",
           'dataSrc': 'recordappointment'
       	},
       	'columns': [
+          { 'data': 'customerid' },
           { 'data': 'fullname' },
           { 'data': 'date' },
           { 'data': 'record' }
       	],
-      	'rowId': 'id',
+		'rowId': 'id',
+		"columnDefs": [
+            {
+                "targets": [ 0 ],
+                "visible": false
+            }
+        ],
 		orderCellsTop: true,
 		fixedHeader: true,
 		dom: 'Bfrtip',
         buttons: [
-            // {
-            //     text: 'Add',
-            //     action: function ( e, dt, node, config ) {
-			// 		$("#formDiv").attr("hidden", false);
-			// 		$("#BtnAdd").attr("hidden", false);
-			// 		$("#BtnEdit").attr("hidden", true);
+            {
+                text: 'Add',
+                action: function ( e, dt, node, config ) {
+					$("#formDiv").attr("hidden", false);
+					$("#BtnAdd").attr("hidden", false);
+					$("#BtnEdit").attr("hidden", true);
 
-			// 		$("#customername,#datecustomer,#recorddata").val("");
-            //     }
-			// },
+					$("#customername,#datecustomer,#recorddata").val("");
+                }
+			},
 			{
                 text: 'Edit',
                 action: function ( e, dt, node, config ) {
@@ -167,7 +196,7 @@ $(document).ready(function() {
 						$("#BtnAdd").attr("hidden", true);
 						$("#BtnEdit").attr("hidden", false);
 
-						$("#customername").val(table.row('.selected').data().fullname);
+						$("#customername").val(table.row('.selected').data().customerid);
 						$("#datecustomer").val(table.row('.selected').data().date);
 						$("#recorddata").val(table.row('.selected').data().record);
 					}
@@ -181,18 +210,73 @@ $(document).ready(function() {
 					if (table.row('.selected').id() === undefined) {
                     	alert("Please select row first");
 					} else {
-
+						$.ajax({
+							url: "database/recordvet.php",
+							dataType: "text",
+							type: "POST",
+							'data' : {
+									"function":"deletedata",
+									"iddata": table.row('.selected').id()
+							},
+							success: function (data) {
+								console.log(data);
+								alert (data);
+								table.ajax.reload();
+								$("#formDiv").attr("hidden", true);
+							}
+						});
 					}
                 }
             }
         ]
 	});
 	
-	// $("#BtnAdd").click(function() {
+	$("#BtnAdd").click(function() {
 
-	// 	if ()
+		$.ajax({
+			url: "database/recordvet.php",
+			dataType: "text",
+			type: "POST",
+			'data' : {
+					"function":"adddata",
+					"customername": $("#customername").val(),
+					"date": $("#datecustomer").val(),
+					"record": $("#recorddata").val()
+			},
+			success: function (data) {
+				console.log(data);
+				alert (data);
+				table.ajax.reload();
+				$("#formDiv").attr("hidden", true);
 
-	// });
+			}
+		});
+
+	});
+
+	$("#BtnEdit").click(function() {
+
+		$.ajax({
+			url: "database/recordvet.php",
+			dataType: "text",
+			type: "POST",
+			'data' : {
+					"function":"edit",
+					"iddata": table.row('.selected').id(),
+					"customername": table.row('.selected').data().customerid,
+					"date": $("#datecustomer").val(),
+					"record": $("#recorddata").val()
+			},
+			success: function (data) {
+				console.log(data);
+				alert (data);
+				table.ajax.reload();
+				$("#formDiv").attr("hidden", true);
+			}
+		});
+
+	});
+	
 
 
 	$("#BtnCancel").click(function() {
